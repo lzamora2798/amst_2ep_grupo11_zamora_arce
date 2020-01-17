@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -26,15 +27,18 @@ public class ResultadoActivity extends AppCompatActivity {
 
     String abuscar;
     RequestQueue ListaRequest = null;
+    TextView valor;
     private Map<String, TextView> heroesTWs;
     String token = "2961174840561847";
+    LinearLayout linearLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resultado);
-
+        valor = findViewById(R.id.textView2);
         abuscar = getIntent().getStringExtra("busqueda");
+        linearLayout = findViewById(R.id.cont_heroes);
         ListaRequest = Volley.newRequestQueue(this);
 
         this.buscarHeroe2();
@@ -66,12 +70,19 @@ public class ResultadoActivity extends AppCompatActivity {
 
     public void mostrarHeroes(JSONObject heroes) {
         JSONArray resultados;
+        JSONObject personaje;
         String nombres;
 
         try {
+
             resultados = heroes.getJSONArray("results");
+            valor.setText("Resultado: "+resultados.length());
             for (int i=0 ; i< resultados.length(); i++){
-                System.out.println(resultados.get(i));
+                personaje = (JSONObject) resultados.get(i);
+                System.out.println(personaje.getString("name"));
+                TextView nuevo = new TextView(this);
+                nuevo.setText(personaje.getString("name"));
+                linearLayout.addView(nuevo);
             }
         } catch (JSONException e) {
             e.printStackTrace();

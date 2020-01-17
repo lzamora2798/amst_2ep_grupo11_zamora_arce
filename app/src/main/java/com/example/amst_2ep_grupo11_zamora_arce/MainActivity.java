@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.android.volley.Request;
@@ -17,24 +18,27 @@ import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
     EditText editText;
-    String Abuscar= null;
+    String Abuscar;
+    Button cambio;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        editText = (EditText) findViewById(R.id.editText);
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-    }
-    public void busqueda(View view){
-        //Abuscar = editText.getText().toString();
-        //Volley.newRequestQueue("https://superheroapi.com/api/access-token/2961174840561847");
-        Intent intent = new Intent(this,ResultadoActivity.class );
-        intent.putExtra("busqueda","batman");
-        startActivity(intent);
+        editText = (EditText) findViewById(R.id.editText);
+        cambio = findViewById(R.id.button);
+        cambio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Abuscar = editText.getText().toString();
+                //Volley.newRequestQueue("https://superheroapi.com/api/access-token/2961174840561847");
+                Intent intent = new Intent(MainActivity.this,ResultadoActivity.class );
+                intent.putExtra("busqueda",Abuscar);
+                startActivity(intent);
+            }
+        });
 
-
     }
+
 }
 
 /*
