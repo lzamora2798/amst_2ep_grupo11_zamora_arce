@@ -3,6 +3,8 @@ package com.example.amst_2ep_grupo11_zamora_arce;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -24,6 +26,7 @@ public class ResultadoActivity extends AppCompatActivity {
 
     String abuscar;
     RequestQueue ListaRequest = null;
+    private Map<String, TextView> heroesTWs;
     String token = "2961174840561847";
 
     @Override
@@ -34,50 +37,60 @@ public class ResultadoActivity extends AppCompatActivity {
         abuscar = getIntent().getStringExtra("busqueda");
         ListaRequest = Volley.newRequestQueue(this);
 
-        this.buscarHeroe();
+        this.buscarHeroe2();
     }
 
-    public void buscarHeroe() {
-        String url_registros = "https://superheroapi.com/api/2961174840561847/search/" + abuscar;
-        JsonArrayRequest requestRegistros = new JsonArrayRequest(Request.Method.GET, url_registros, null, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-                mostrarHeroes(response);
-                //actualizarGrafico(response);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                System.out.println(error);
-            }
-        }
-        ) {
-            @Override
-            public Map<String, String> getHeaders() {
-                Map<String, String> params = new HashMap<>();
-                params.put("Authorization", "JWT " + "2961174840561847");
-                return params;
-            }
-        };
 
-        ListaRequest.add(requestRegistros);
+    public void buscarHeroe2(){
+        String url = "https://superheroapi.com/api/2961174840561847/search/" + abuscar;
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        mostrarHeroes(response);
+
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO: Handle error
+
+                    }
+                });
+        ListaRequest.add(jsonObjectRequest);
     }
 
-    public void mostrarHeroes(JSONArray heroes) {
-        JSONObject objeto;
+
+
+    public void mostrarHeroes(JSONObject heroes) {
+        JSONArray resultados;
         String nombres;
 
-        for (int i = 0; i < heroes.length(); i++) {
+        try {
+            resultados = heroes.getJSONArray("results");
+            for (int i=0 ; i< resultados.length(); i++){
+                System.out.println(resultados.get(i));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+
+
+
+        /*for (int i = 0; i < heroes.length(); i++) {
             try {
                 System.out.println(i);
-                objeto = (JSONObject) heroes.get(i);
-                nombres = objeto.getString("id");
-                System.out.println(objeto.toString());
+                objeto = (JSONObject) heroes.get(String.valueOf(i));
+                nombres = objeto.getString("results");
+                System.out.println(nombres);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-        }
+        }*/
 
     }
 
