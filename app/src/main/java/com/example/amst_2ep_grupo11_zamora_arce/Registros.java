@@ -1,4 +1,4 @@
-
+package com.example.amst_2ep_grupo11_zamora_arce;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -43,7 +43,8 @@ public class Registros extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_registros);
+        //setContentView(R.layout.activity_registros);
+
         setTitle("Grafico de barras");
         temperaturasTVs = new HashMap<String,TextView>();
         fechasTVs = new HashMap<String,TextView>();
@@ -56,7 +57,7 @@ public class Registros extends AppCompatActivity {
     }
     public void iniciarGrafico() {
 
-        graficoBarras = findViewById(R.id.barChart);
+        //graficoBarras = findViewById(R.id.barChart);
         graficoBarras.getDescription().setEnabled(false);
         graficoBarras.setMaxVisibleValueCount(60);
         graficoBarras.setPinchZoom(false);
@@ -105,7 +106,7 @@ public class Registros extends AppCompatActivity {
         TextView fechaRegistro;
         TextView valorRegistro;
 
-        contenedorTemperaturas = findViewById(R.id.cont_temperaturas);
+       // contenedorTemperaturas = findViewById(R.id.cont_temperaturas);
         LinearLayout.LayoutParams parametrosLayout = new LinearLayout.LayoutParams( LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1);
         try {
             for (int i = 0; i < temperaturas.length(); i++) {

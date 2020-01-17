@@ -17,7 +17,7 @@ import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
     EditText editText;
-    String Abuscar;
+    String Abuscar= null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         editText = (EditText) findViewById(R.id.editText);
@@ -27,10 +27,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
     public void busqueda(View view){
-        Abuscar = editText.getText().toString();
+        //Abuscar = editText.getText().toString();
         //Volley.newRequestQueue("https://superheroapi.com/api/access-token/2961174840561847");
         Intent intent = new Intent(this,ResultadoActivity.class );
-        intent.putExtra("busqueda",Abuscar);
+        intent.putExtra("busqueda","batman");
         startActivity(intent);
 
 
