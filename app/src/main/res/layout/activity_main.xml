@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
     <TextView
@@ -11,13 +12,44 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="Aplicaciones moviles y Sistemas Telematicos"
-        android:textSize="30dp" />
+        android:textSize="30dp"
+        android:paddingTop="100dp"/>
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:text="Examen practico"
+        android:textSize="30dp"
+        android:paddingTop="40dp"
+        android:paddingLeft="100dp"
+        android:gravity="center"/>
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Luis Zamora y Javier Arce"
+        android:textSize="20dp"
+        android:paddingTop="40dp"
+        android:paddingLeft="90dp"
+        android:gravity="center"
+        android:textStyle="bold"/>
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Busqueda por Nombre"
+        android:paddingTop="20dp"/>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Busqueda Heroes"
+        android:onClick="busqueda"/>
 
 
 </LinearLayout>
