@@ -2,8 +2,10 @@ package com.example.amst_2ep_grupo11_zamora_arce;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -49,18 +51,15 @@ public class ResultadoActivity extends AppCompatActivity {
         String url = "https://superheroapi.com/api/2961174840561847/search/" + abuscar;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-
                     @Override
                     public void onResponse(JSONObject response) {
                         mostrarHeroes(response);
-
                     }
                 }, new Response.ErrorListener() {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // TODO: Handle error
-
                     }
                 });
         ListaRequest.add(jsonObjectRequest);
@@ -71,6 +70,7 @@ public class ResultadoActivity extends AppCompatActivity {
     public void mostrarHeroes(JSONObject heroes) {
         JSONArray resultados;
         JSONObject personaje;
+
         String nombres;
 
         try {
@@ -79,9 +79,34 @@ public class ResultadoActivity extends AppCompatActivity {
             valor.setText("Resultado: "+resultados.length());
             for (int i=0 ; i< resultados.length(); i++){
                 personaje = (JSONObject) resultados.get(i);
-                System.out.println(personaje.getString("name"));
+                System.out.println();
+
+                final JSONObject personaje_powe = (JSONObject) personaje.get("powerstats");
+                final JSONObject nombre = (JSONObject) personaje.get("biography");
                 TextView nuevo = new TextView(this);
                 nuevo.setText(personaje.getString("name"));
+                nuevo.setTextSize(50);
+                final JSONObject finalPersonaje = personaje;
+                nuevo.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        try {
+
+                            Intent intent = new Intent(ResultadoActivity.this,Grafica.class );
+                            intent.putExtra("power",(personaje_powe.getString("power")));
+                            intent.putExtra("intelligence",(personaje_powe.getString("intelligence")));
+                            intent.putExtra("strength",(personaje_powe.getString("strength")));
+                            intent.putExtra("speed",(personaje_powe.getString("speed")));
+                            intent.putExtra("durability",(personaje_powe.getString("durability")));
+                            intent.putExtra("combat",(personaje_powe.getString("combat")));
+                            intent.putExtra("completo",nombre.getString("full-name"));
+                            intent.putExtra("nombre", finalPersonaje.getString("name"));
+                            startActivity(intent);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
                 linearLayout.addView(nuevo);
             }
         } catch (JSONException e) {
