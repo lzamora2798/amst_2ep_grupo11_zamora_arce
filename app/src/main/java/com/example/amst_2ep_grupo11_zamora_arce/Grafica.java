@@ -10,6 +10,7 @@ import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
@@ -33,7 +34,7 @@ public class Grafica extends AppCompatActivity {
         poder = Integer.parseInt(getIntent().getStringExtra("power"));
         combate = Integer.parseInt(getIntent().getStringExtra("combat"));
         nombrecompleto = getIntent().getStringExtra("completo");
-        nombre = getIntent().getStringExtra("name");
+        nombre = getIntent().getStringExtra("nombre");
         textView.setText(nombre+"\n"+nombrecompleto);
 
 
@@ -56,8 +57,21 @@ public class Grafica extends AppCompatActivity {
         graficoBarras.setDrawBarShadow(false);
         graficoBarras.setDrawGridBackground(false);
         XAxis xAxis = graficoBarras.getXAxis();
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+
         xAxis.setDrawGridLines(false);
+
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setDrawLabels(true);
+        xAxis.setGranularity(1f);
+        xAxis.setLabelRotationAngle(+90);
+
+        final ArrayList<String> axiss = new ArrayList<>();
+        axiss.add("fuerza");
+        axiss.add("velocidad");
+        axiss.add("durabilidad");
+        axiss.add("poder");
+        axiss.add("combate");
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(axiss));
         graficoBarras.getAxisLeft().setDrawGridLines(false);
         graficoBarras.animateY(1500);
         graficoBarras.getLegend().setEnabled(false);
@@ -80,6 +94,12 @@ public class Grafica extends AppCompatActivity {
             graficoBarras.setFitBars(true);
         }
         graficoBarras.invalidate();
+    }
+
+    public void nombres(){
+
+
+
     }
 
 }

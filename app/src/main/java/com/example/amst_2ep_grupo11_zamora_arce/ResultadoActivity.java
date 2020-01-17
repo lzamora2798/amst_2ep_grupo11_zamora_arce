@@ -47,6 +47,7 @@ public class ResultadoActivity extends AppCompatActivity {
     }
 
 
+
     public void buscarHeroe2(){
         String url = "https://superheroapi.com/api/2961174840561847/search/" + abuscar;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
@@ -114,19 +115,6 @@ public class ResultadoActivity extends AppCompatActivity {
         }
 
 
-
-
-
-        /*for (int i = 0; i < heroes.length(); i++) {
-            try {
-                System.out.println(i);
-                objeto = (JSONObject) heroes.get(String.valueOf(i));
-                nombres = objeto.getString("results");
-                System.out.println(nombres);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }*/
 
     }
 
